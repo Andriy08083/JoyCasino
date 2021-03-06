@@ -6,6 +6,8 @@
 
 package ua.PGFKCasino;
 
+import ua.PGFKCasino.roulette.Roulette;
+
 /**
  *
  * @author Andrey
