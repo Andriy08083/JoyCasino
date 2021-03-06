@@ -6,6 +6,7 @@
 
 package ua.PGFKCasino;
 
+import org.fusesource.jansi.AnsiConsole;
 import ua.PGFKCasino.roulette.Roulette;
 
 /**
@@ -18,7 +19,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        AnsiConsole.systemInstall();
     }
 
 }
