@@ -41,10 +41,10 @@ public class SlotMachine extends IO implements ICasinoGame {
                 System.out.println("Вітаю ти виграв $" + doubl);
                 coin += doubl;
 
-            } else if (slot1 == slot2 && slot1 == slot3 && !slot1.equals("Вишня")) {
+            } else if (slot1 == slot2 && slot3.equals("Вишня")) {
                 System.out.println("Вітаю ти виграв $" + tripl);
                 coin += tripl;
-            } else if (!slot1.equals("Вишня") && !slot1.equals("Вишня") && !slot1.equals("Вишня")) {
+            } else if (slot1.equals("Вишня") && slot2.equals("Вишня") && slot3.equals("Вишня")) {
                 System.out.println("Вітаю! Ти зірвав джекпот $" + jeckpot);
             }
             System.out.println("Твій баланс складає " + coin);
