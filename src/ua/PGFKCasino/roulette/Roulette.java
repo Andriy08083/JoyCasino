@@ -4,6 +4,7 @@ import org.fusesource.jansi.Ansi;
 import ua.PGFKCasino.IO;
 import ua.PGFKCasino.interfaces.ICasinoGame;
 
+import java.io.*;
 import java.util.*;
 
 import static org.fusesource.jansi.Ansi.Color.*;
@@ -45,34 +46,39 @@ public class Roulette extends IO implements ICasinoGame {
 
     public String runRoulette() {
         try {
-            String values = "";
-            Ansi space = ansi().fg(Ansi.Color.CYAN).a("--").reset();
+            String border = "=====================================";
+            String upperArrow = ansi().fg(CYAN).a("                        \\|/").reset().toString();
+            String bottomArrow = ansi().fg(CYAN).a("                        /|\\").reset().toString();
+            StringBuilder values = new StringBuilder();
+            Ansi space = ansi().fg(MAGENTA).a("--").reset();
             List<Ansi> allSpin = new ArrayList<>();
             List<Ansi> randomisedRoulette = new ArrayList<>(numbers);
             Collections.shuffle(randomisedRoulette);
-            //int lastSpin = new Random().nextInt((((50) + 1) * 10));
             int lastSpin = 50;
             int i;
 
-            for (i = 0; i <= lastSpin; ) {
+            for (i = 0; i <= lastSpin;) {
                 if (i != 0) {
                     clearConsole();
                     getCurrentGameStats();
-                    System.out.println("=====================================");
-                    System.out.println(ansi().fg(RED).a("                        \\|/").reset());
-                    System.out.println(values.substring(0, (values.length() - 10)));
-                    System.out.println(ansi().fg(RED).a("                        /|\\").reset());
-                    System.out.println("=====================================");
-                    values = "";
+                    OutputStream outputStream = new BufferedOutputStream(System.out);
+                    outputStream.write((border +
+                            "\n" + upperArrow +
+                            "\n" + values.substring(0, (values.length() - 10)) +
+                            "\n" + bottomArrow +
+                            "\n" + border +
+                            "\n").getBytes());
+                    outputStream.flush();
+                    values.delete(0, values.length());
                 }
                 for (int k = 0; k < 12; k++) {
                     if (i == lastSpin) {
                         allSpin.add(randomisedRoulette.get((i + k) % 37));
                     }
-                    values += "|" + randomisedRoulette.get((i + k) % 37) + "|" + space;
+                    values.append("|").append(randomisedRoulette.get((i + k) % 37)).append("|").append(space);
                 }
                 i++;
-                Thread.sleep(15);
+                Thread.sleep(50);
             }
             if (!isNumberBet) {
                 Ansi color;

@@ -1,49 +1,78 @@
 package ua.PGFKCasino.dice;
 
+import ua.PGFKCasino.IO;
 import ua.PGFKCasino.interfaces.ICasinoGame;
+import java.util.Random;
 
-import java.util.*;
-
-public class Dice implements ICasinoGame {
-
-
+public class Dice extends IO implements ICasinoGame{
+    int bet;
+    int money = 0;
+    int bonus = 100;
 
     public Dice() {
-
+        money += bonus;
+        System.out.println("Вітаю. Ви отримали бонус: "+ bonus + " гривень!");
+        startGame();
     }
-
-    @Override
-    public void startGame() {
-        int cash = 1000;
-        Scanner scanner = new Scanner (System.in);
-        System.out.println("Ви розпочали гру");
-        System.out.print("Зробіть ставку: ");
-        int bet = scanner.nextInt();
-        System.out.print("Введіть значення кубика: ");
-        int dice = scanner.nextInt();
+    
+    public void spinDice(){
         int diceone = 1 + new Random().nextInt(6);
         int dicetwo = 1 + new Random().nextInt(6);
         int dicethree = 1 + new Random().nextInt(6);
         System.out.println("Значення кубиків: " + diceone + " | "  + dicetwo + " | "  + dicethree );
+    }
+    
+    public void resultGame(int coef){
+        if(coef == 4 || coef == 3 || coef == 2){
+            money = money + bet * coef;
+            System.out.println("Ваш виграш - " + bet * coef + " гривень!");
+        }else if(coef == 0){
+            System.out.println("Ви програли");
+        }
+        System.out.println("Ваш баланс - " + money + " гривень!");
+    }
+
+    @Override
+    public void startGame() {
+        System.out.println("Ви розпочали гру");
+        
+        System.out.print("Зробіть ставку: ");
+            bet = getInput();
+            money = money - bet;
+        System.out.print("Ставка прийнята.");
+        System.out.print("Введіть значення кубика: ");
+            int dice = getInput();
+            
+        int diceone = 1 + new Random().nextInt(6);
+        int dicetwo = 1 + new Random().nextInt(6);
+        int dicethree = 1 + new Random().nextInt(6);
+        System.out.println("Значення кубиків: " + diceone + " | "  + dicetwo + " | "  + dicethree );
+        
         if(diceone == dice && dicetwo == dice && dicethree == dice){
-            cash = cash + bet * 3;
-            System.out.println("Ваш виграш - " + bet * 4);
-            System.out.println("Ваш баланс - " + cash);
+            resultGame(4);
         }else if(diceone == dice && dicetwo == dice || diceone == dice && dicethree == dice || dicetwo == dice && dicethree == dice){
-            cash = cash + bet * 2;
-            System.out.println("Ваш виграш - " + bet * 3);
-            System.out.println("Ваш баланс - " + cash);
+            resultGame(3);
         }else if(diceone == dice || dicetwo == dice || dicethree == dice){
-            cash = cash + bet;
-            System.out.println("Ваш виграш - " + bet * 2);
-            System.out.println("Ваш баланс - " + cash);
+            resultGame(2);
         }else {
-            cash = cash - bet;
-            System.out.println("Ваш програли");
-            System.out.println("Ваш баланс - " + cash);
+            resultGame(0);
         }
     }
 
+    public Integer getInput() {
+        try {
+            int input = Integer.parseInt(handleInput());
+            if (money >= input && input > 0) {
+                return input;
+            } else
+                throw new Exception("У вас недостатньо коштiв");
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+            return getInput();
+        }
+    }
+    
     @Override
     public void stopGame() {
 
