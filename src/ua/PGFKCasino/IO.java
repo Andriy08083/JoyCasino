@@ -1,17 +1,19 @@
 package ua.PGFKCasino;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import java.io.*;
 
 public class IO {
     static ProcessBuilder cls =  new ProcessBuilder("cmd", "/c", "cls");
-    public String handleInput() {
+
+    public static String handleInput() {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
             return reader.readLine();
         }
-        catch (Exception e) { }
+        catch (Exception ignored) { }
         return "";
     }
 
@@ -26,5 +28,33 @@ public class IO {
             }
         }
         catch (Exception ignored) { }
+    }
+
+    public static Object readJSON(String fileName) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String data = reader.readLine();
+            reader.close();
+            JSONParser parser = new JSONParser();
+            return parser.parse(data);
+        }
+        catch (Exception ignored) {
+        }
+        return new Object();
+    }
+
+    public static void writeJSON(String name, int balance) {
+        try {
+            JSONObject jsonObject = new JSONObject();
+            FileWriter writer = new FileWriter("profiles/" + name + ".json");
+            jsonObject.put("name", name);
+            jsonObject.put("balance", String.valueOf(balance));
+            writer.write(jsonObject.toJSONString());
+            writer.close();
+        }
+        catch (IOException ignored) {
+            System.out.println("Сталася поммилка при збереженнi профiля");
+        }
+
     }
 }

@@ -8,6 +8,9 @@ package ua.PGFKCasino;
 
 import org.fusesource.jansi.AnsiConsole;
 import ua.PGFKCasino.Slots.SlotMachine;
+import ua.PGFKCasino.menu.Menu;
+import ua.PGFKCasino.menu.MenuHandler;
+import ua.PGFKCasino.profile.Profile;
 import ua.PGFKCasino.roulette.Roulette;
 
 /**
@@ -21,8 +24,8 @@ public class Main {
      */
     public static void main(String[] args) {
         AnsiConsole.systemInstall();
-        //Roulette r = new Roulette(10000);
-        //SlotMachine roulette = new SlotMachine();
+        Menu.printMain();
+        MenuHandler.handleMain();
     }
 
 }

@@ -1,8 +1,10 @@
+//TODO: Win coefficients, less than 0 balance, etc
 package ua.PGFKCasino.roulette;
 
 import org.fusesource.jansi.Ansi;
 import ua.PGFKCasino.IO;
 import ua.PGFKCasino.interfaces.ICasinoGame;
+import ua.PGFKCasino.profile.Profile;
 
 import java.io.*;
 import java.util.*;
@@ -12,6 +14,8 @@ import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
 public class Roulette extends IO implements ICasinoGame {
+    String name;
+    Profile profile;
     int money, bet, input;
     int num;
     Ansi inputColor;
@@ -41,9 +45,9 @@ public class Roulette extends IO implements ICasinoGame {
             blackColor("35"), redColor("36")));
 
 
-    public Roulette(int balance) {
-        this.money = balance;
-        startGame();
+    public Roulette(Profile pr) {
+        profile = pr;
+        loadGame();
     }
 
     public String runRoulette() {
@@ -72,7 +76,8 @@ public class Roulette extends IO implements ICasinoGame {
                             .append("\n")
                             .append(bottomArrow)
                             .append("\n")
-                            .append(border).append("\n");
+                            .append(border)
+                            .append("\n");
                     os.write(sb.toString().getBytes());
                     os.flush();
                     values = new StringBuffer();
@@ -219,17 +224,30 @@ public class Roulette extends IO implements ICasinoGame {
 
     @Override
     public void stopGame() {
-
+        System.out.println("Гру завершено");
+        saveGame();
     }
 
     @Override
     public void saveGame() {
-
+        if (name != null) {
+            writeJSON(name, money);
+            System.out.println("Профiль успiшно збережено");
+        }
+        else
+            System.out.println("Неможливо зберегти профiль");
     }
 
     @Override
     public void loadGame() {
-
+        try {
+            name = profile.getName();
+            money = Integer.parseInt(profile.getBalance());
+            startGame();
+        }
+        catch (Exception e) {
+            stopGame();
+        }
     }
 
     @Override
@@ -240,11 +258,11 @@ public class Roulette extends IO implements ICasinoGame {
                 sb.append("Ваша ставка: ").append(bet).append("\n");
                 sb.append("Число, на яке ви поставили: ").append(input).append("\n");
             } else {
-                System.out.println("Ваш баланс: " + money);
-                System.out.println("Ваша ставка: " + bet);
-                System.out.println("Колiр, на який ви поставили: " + inputColor);
+                sb.append("Ваш баланс: ").append(money).append("\n");
+                sb.append("Ваша ставка: ").append(bet).append("\n");
+                sb.append("Колiр, на який ви поставили: ").append(inputColor).append("\n");
             }
         }
-        catch (Exception e) { }
+        catch (Exception ignored) { }
     }
 }
