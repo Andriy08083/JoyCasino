@@ -2,18 +2,24 @@ package ua.PGFKCasino.Slots;
 
 import ua.PGFKCasino.IO;
 import ua.PGFKCasino.interfaces.ICasinoGame;
+import ua.PGFKCasino.profile.Profile;
+
 import java.util.Random;
 
 public class SlotMachine extends IO implements ICasinoGame {
+    String name;
+    Profile profile;
     int money = 0;
     int coin = 50;
     public static String getFruit() {
         String[] fruits = new String[]{"Вишня", "Апельсин", "Слива","Банан","Гарбуз","Бочка"};
         return fruits[new Random().nextInt(fruits.length)];
     }
-    public SlotMachine() {
+    public SlotMachine(Profile pr) {
         money += coin;
         startGame();
+        profile =pr;
+        loadGame();
     }
 
 
@@ -89,17 +95,30 @@ public class SlotMachine extends IO implements ICasinoGame {
 
     @Override
     public void stopGame() {
-
+        System.out.println("Гру завершено");
+        saveGame();
     }
 
     @Override
     public void saveGame() {
-
+        if (name != null) {
+            writeJSON(name, money);
+            System.out.println("Профiль успiшно збережено");
+        }
+        else
+            System.out.println("Неможливо зберегти профiль");
     }
 
     @Override
     public void loadGame() {
-
+        try {
+            name = profile.getName();
+            money = Integer.parseInt(profile.getBalance());
+            startGame();
+        }
+        catch (Exception e) {
+            stopGame();
+        }
     }
 
     @Override

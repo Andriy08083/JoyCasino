@@ -50,7 +50,7 @@ public class MenuHandler extends Menu {
                 new Roulette(new Profile("andrey"));
                 break;
             case "2":
-                new SlotMachine();
+                new SlotMachine(new Profile("Potichniy"));
                 break;
             case "3":
                 new Dice();
