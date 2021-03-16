@@ -1,9 +1,9 @@
 package ua.PGFKCasino.profile;
 
 import org.json.simple.JSONObject;
-import ua.PGFKCasino.IO;
+import handlers.IOHandler;
 
-public class Profile extends IO {
+public class Profile extends IOHandler {
     String name, balance;
 
     public Profile(String jsonFile) {
@@ -28,5 +28,9 @@ public class Profile extends IO {
     public void getProfile() {
         System.out.println("Iм'я: " + name);
         System.out.println("Баланс: " + balance);
+    }
+
+    public void setDefaultProfile() {
+        IOHandler.writeFile("defaultProfile", this.name);
     }
 }

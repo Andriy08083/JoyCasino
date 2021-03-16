@@ -1,9 +1,9 @@
-//TODO: Win coefficients, less than 0 balance, etc
 package ua.PGFKCasino.roulette;
 
 import org.fusesource.jansi.Ansi;
-import ua.PGFKCasino.IO;
+import handlers.IOHandler;
 import ua.PGFKCasino.interfaces.ICasinoGame;
+import ua.PGFKCasino.menu.SoundPlayer;
 import ua.PGFKCasino.profile.Profile;
 
 import java.io.*;
@@ -13,7 +13,7 @@ import java.util.List;
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
-public class Roulette extends IO implements ICasinoGame {
+public class Roulette extends IOHandler implements ICasinoGame {
     String name;
     Profile profile;
     int money, bet, input;
@@ -52,6 +52,7 @@ public class Roulette extends IO implements ICasinoGame {
 
     public String runRoulette() {
         try {
+            new SoundPlayer("rouletteRun").start();
             String border = "=====================================";
             String upperArrow = ansi().fg(CYAN).a("                        \\|/").reset().toString();
             String bottomArrow = ansi().fg(CYAN).a("                        /|\\").reset().toString();
@@ -61,7 +62,7 @@ public class Roulette extends IO implements ICasinoGame {
             List<Ansi> allSpin = new ArrayList<>();
             List<Ansi> randomisedRoulette = new ArrayList<>(numbers);
             Collections.shuffle(randomisedRoulette);
-            int lastSpin = 50;
+            int lastSpin = 75;
             int i;
             for (i = 0; i <= lastSpin;) {
                 Thread.sleep(100);
@@ -123,20 +124,42 @@ public class Roulette extends IO implements ICasinoGame {
     public void startGame() {
         String random;
         System.out.println("Ви розпочали гру");
+        System.out.println("Ваш баланс: " + money);
+        if (money <= 0) {
+            System.out.println("Ви не можете грати, у вас нульовий баланс");
+            stopGame();
+            return;
+        }
         input = isColorOrNum();
-
+        if (input == 0) {
+            stopGame();
+            return;
+        }
         System.out.print("Зробiть ставку: ");
         bet = getInput(1);
 
         random = runRoulette();
         if (String.valueOf(input).equals(random)) {
-            System.out.println("Повезло-повезло");
-            money += bet;
+            new SoundPlayer("moneyWin").start();
+            if (isNumberBet) {
+                System.out.println("Ви вгадали число");
+                System.out.println("Ваш виграш становить: " + (bet * 35));
+                money += (bet * 35);
+            }
+            else {
+                System.out.println("Ви вгадали колiр");
+                System.out.println("Ваш виграш становить: " + (bet * 2));
+                money += bet;
+            }
         }
         else {
-            System.out.println("Не повезло-не повезло");
+            new SoundPlayer("moneyLose").start();
+            System.out.println("Ви програли :(");
             money -= bet;
+
         }
+        saveGame();
+        System.out.println("Ваш баланс становить: " + money);
         System.out.println("Ставимо ще?");
         System.out.println("0. Нi, 1. Так");
         isGameContinue();
@@ -159,18 +182,20 @@ public class Roulette extends IO implements ICasinoGame {
 
     public Integer isColorOrNum() {
         System.out.println("Ставите на колiр, чи на число?");
-        System.out.println("0. Колiр, 1. Число");
+        System.out.println("0. Колiр, 1. Число, 2. Покинути гру");
         switch (handleInput().trim()) {
-            case "1":
-                isNumberBet = true;
-                System.out.print("Виберiть число: ");
-                return getInput(0);
             case "0":
                 isNumberBet = false;
                 System.out.println("0. Зелений, 1. Синiй, 2. Червоний");
                 System.out.print("Виберiть колiр: ");
                 return getInput(2);
-                default:
+            case "1":
+                isNumberBet = true;
+                System.out.print("Виберiть число: ");
+                return getInput(0);
+            case "2":
+                return 0;
+            default:
                 System.out.println("Незрозумiла команда, повторiть ще раз");
                 return isColorOrNum();
         }
@@ -182,6 +207,7 @@ public class Roulette extends IO implements ICasinoGame {
                 case 0:
                     num = Integer.parseInt(handleInput().trim());
                     if ((0 <= num) && (num <= 36)) {
+                        new SoundPlayer("moneyAccept").start();
                         return num;
                     } else
                         throw new Exception("Введене вами число не в дiапазонi гри");
@@ -210,12 +236,14 @@ public class Roulette extends IO implements ICasinoGame {
         }
         catch (Exception e) {
             if (e.getMessage().equals("У вас недостатньо коштiв")) {
+                new SoundPlayer("moneyDeny").start();
                 System.out.println("У вас недостатньо коштiв. Зробіть меншу ставку");
                 return getInput(1);
             }
             else {
                 System.out.println("Введене вами число не в дiапазонi гри");
                 System.out.println("Введiть число, яке потрапляє в дiапазон вiд 0 до 36 включно");
+                new SoundPlayer("moneyDeny").start();
                 return getInput(0);
             }
         }
@@ -231,7 +259,7 @@ public class Roulette extends IO implements ICasinoGame {
     @Override
     public void saveGame() {
         if (name != null) {
-            writeJSON(name, money);
+            writeJSON("profiles/" + name + ".json", name, money);
             System.out.println("Профiль успiшно збережено");
         }
         else
@@ -254,11 +282,11 @@ public class Roulette extends IO implements ICasinoGame {
     public void getCurrentGameStats() {
         try {
             if (isNumberBet) {
-                sb.append("Ваш баланс: ").append(money).append("\n");
+                sb.append("Ваш баланс: ").append((money - bet)).append("\n");
                 sb.append("Ваша ставка: ").append(bet).append("\n");
                 sb.append("Число, на яке ви поставили: ").append(input).append("\n");
             } else {
-                sb.append("Ваш баланс: ").append(money).append("\n");
+                sb.append("Ваш баланс: ").append((money - bet)).append("\n");
                 sb.append("Ваша ставка: ").append(bet).append("\n");
                 sb.append("Колiр, на який ви поставили: ").append(inputColor).append("\n");
             }

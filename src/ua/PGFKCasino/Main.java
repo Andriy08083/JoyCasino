@@ -7,11 +7,9 @@
 package ua.PGFKCasino;
 
 import org.fusesource.jansi.AnsiConsole;
-import ua.PGFKCasino.Slots.SlotMachine;
 import ua.PGFKCasino.menu.Menu;
-import ua.PGFKCasino.menu.MenuHandler;
-import ua.PGFKCasino.profile.Profile;
-import ua.PGFKCasino.roulette.Roulette;
+import handlers.MenuHandler;
+import ua.PGFKCasino.menu.SoundPlayer;
 
 /**
  *
@@ -23,6 +21,7 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //new SoundPlayer("audio").start();
         AnsiConsole.systemInstall();
         Menu.printMain();
         MenuHandler.handleMain();

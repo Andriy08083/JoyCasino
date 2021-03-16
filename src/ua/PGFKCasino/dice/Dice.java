@@ -1,10 +1,10 @@
 package ua.PGFKCasino.dice;
 
-import ua.PGFKCasino.IO;
+import handlers.IOHandler;
 import ua.PGFKCasino.interfaces.ICasinoGame;
 import java.util.Random;
 
-public class Dice extends IO implements ICasinoGame{
+public class Dice extends IOHandler implements ICasinoGame{
     int bet;
     int money = 0;
     int bonus = 100;
