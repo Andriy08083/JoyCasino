@@ -1,18 +1,23 @@
 package ua.PGFKCasino.Slots;
 
+
 import ua.PGFKCasino.IO;
 import ua.PGFKCasino.interfaces.ICasinoGame;
 import ua.PGFKCasino.profile.Profile;
 
 import java.util.Random;
 
+
+
 public class SlotMachine extends IO implements ICasinoGame {
+    public static final String RED = "\033[0;31m";
+    public static final String RESET = "\u001B[0m";
     String name;
     Profile profile;
     int money = 0;
     int coin = 50;
     public static String getFruit() {
-        String[] fruits = new String[]{"Вишня", "Апельсин", "Слива","Банан","Гарбуз","Бочка"};
+        String[] fruits = new String[]{RED+"Вишня"+RESET, "Апельсин", "Слива","Банан","Гарбуз","Бочка"};
         return fruits[new Random().nextInt(fruits.length)];
     }
     public SlotMachine(Profile pr) {
