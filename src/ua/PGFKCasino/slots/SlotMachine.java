@@ -14,17 +14,16 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
     public static final String RESET = "\u001B[0m";
     String name;
     Profile profile;
-    int money = 0;
-    int coin = 50;
+    int money;
+    int coin;
     public static String getFruit() {
         String[] fruits = new String[]{RED+"Вишня"+RESET, "Апельсин", "Слива","Банан","Гарбуз","Бочка"};
         return fruits[new Random().nextInt(fruits.length)];
     }
     public SlotMachine(Profile pr) {
-        money += coin;
-        startGame();
         profile = pr;
         loadGame();
+        money += coin;
     }
 
 
@@ -40,7 +39,7 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
             slot1 = getFruit();
             slot2 = getFruit();
             slot3 = getFruit();
-            System.out.println("Твій баланс складає:" + money);
+            System.out.println("Твій баланс складає:" +money);
             System.out.println("Скільки ти хочеш поставити??");
             rate = getInput();
             doubl = rate * 2;
@@ -62,7 +61,7 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
             } else if (slot1.equals("Вишня") && slot2.equals("Вишня") && slot3.equals("Вишня")) {
                 System.out.println("Вітаю! Ти зірвав джекпот $" + jeckpot);
             }
-            System.out.println("Твій баланс складає " + money);
+            System.out.println("Твій баланс складає " + coin);
             System.out.println("Прожовжити? 1/2 ");
             ContinueSpin();
 
