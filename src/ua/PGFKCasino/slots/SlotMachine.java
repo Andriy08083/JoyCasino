@@ -61,7 +61,7 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
             } else if (slot1.equals("Вишня") && slot2.equals("Вишня") && slot3.equals("Вишня")) {
                 System.out.println("Вітаю! Ти зірвав джекпот $" + jeckpot);
             }
-            System.out.println("Твій баланс складає " + coin);
+            System.out.println("Твій баланс складає " + money);
             System.out.println("Прожовжити? 1/2 ");
             ContinueSpin();
 
