@@ -61,7 +61,7 @@ public class MenuHandler extends Menu {
                 handleMain();
                 break;
             case "3":
-                new Dice();
+                new Dice(new Profile(IOHandler.readFile("defaultProfile")));
                 printMain();
                 handleMain();
                 break;
