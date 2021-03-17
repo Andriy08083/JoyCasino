@@ -12,18 +12,23 @@ import java.util.Random;
 public class SlotMachine extends IOHandler implements ICasinoGame {
     public static final String RED = "\033[0;31m";
     public static final String RESET = "\u001B[0m";
+    public static final String YELLOW = "\u001B[33m";
+    public static final String PURPLE = "\u001B[35m";
+    public static final String CYAN = "\u001B[36m";
+    public static final String GREEN = "\u001B[32m";
     String name;
     Profile profile;
     int money;
     int coin;
     public static String getFruit() {
-        String[] fruits = new String[]{RED+"Вишня"+RESET, "Апельсин", "Слива","Банан","Гарбуз","Бочка"};
+        String[] fruits = new String[]{RED+"Вишня"+RESET,"Апельсин",PURPLE+"Слива"+RESET,YELLOW+"Банан"+RESET,GREEN+"Гарбуз"+RESET,CYAN+"Бочка"+RESET};
         return fruits[new Random().nextInt(fruits.length)];
     }
     public SlotMachine(Profile pr) {
         profile = pr;
         loadGame();
         money += coin;
+
     }
 
 
