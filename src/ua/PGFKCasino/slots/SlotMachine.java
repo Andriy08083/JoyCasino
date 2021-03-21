@@ -19,8 +19,9 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
     public static final String GREEN = "\u001B[32m";
     String name;
     Profile profile;
-    int money;
-    int coin;
+    int money;//гроші
+    int coin;//внутрішня валюта
+    //Масив для слот
     public static String getFruit() {
         String[] fruits = new String[]{RED+"Вишня"+RESET,"Апельсин",PURPLE+"Слива"+RESET,YELLOW+"Банан"+RESET,GREEN+"Гарбуз"+RESET,CYAN+"Бочка"+RESET};
         return fruits[new Random().nextInt(fruits.length)];
@@ -32,8 +33,10 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
 
     }
 
-
     @Override
+    /*
+        метод який починає гру
+     */
     public void startGame() {
         int rate;
         String slot1;
@@ -76,7 +79,9 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
             ContinueSpin();
 
     }
-
+    /*
+       Метод для перевірки балансу
+     */
     public Integer getInput() {
         try {
             int input = Integer.parseInt(handleInput());
@@ -92,7 +97,9 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
         }
     }
 
-
+    /*
+        Метод для продовження гри
+     */
     public void ContinueSpin(){
         switch (handleInput().trim()) {
             case "1":
@@ -107,7 +114,9 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
                 break;
         }
     }
-
+   /*
+      метод який зупиняє гру
+    */
     @Override
     public void stopGame() {
         System.out.println("Гру завершено");
@@ -115,6 +124,9 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
     }
 
     @Override
+    /*
+      Метод для збереження
+     */
     public void saveGame() {
         if (name != null) {
             writeJSON("profiles/" + name + ".json", name, money);
@@ -125,6 +137,9 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
     }
 
     @Override
+    /*
+            Метод завантаження профілю
+     */
     public void loadGame() {
         try {
             name = profile.getName();
