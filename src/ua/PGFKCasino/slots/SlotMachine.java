@@ -67,7 +67,7 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
                 System.out.println("Вітаю! Ти зірвав джекпот $" + jeckpot);
             }
             System.out.println("Твій баланс складає " + money);
-            System.out.println("Прожовжити? 1/2 ");
+            System.out.println("Прожовжити? 1.Так 2.Ні ");
             ContinueSpin();
 
     }
