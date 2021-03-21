@@ -3,6 +3,7 @@ package ua.PGFKCasino.slots;
 
 import handlers.IOHandler;
 import ua.PGFKCasino.interfaces.ICasinoGame;
+import ua.PGFKCasino.menu.SoundPlayer;
 import ua.PGFKCasino.profile.Profile;
 
 import java.util.Random;
@@ -55,16 +56,20 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
             System.out.println(slot3);
             if (slot1 != slot2 && slot1 != slot3 && slot2 != slot3) {
                 System.out.println("Ти втратив гроші(");
+                new SoundPlayer("moneyLose").start();
                 money -= rate;
             } else if (slot1 == slot2 || slot1 == slot3 || slot2 == slot3) {
                 System.out.println("Вітаю ти виграв $" + doubl);
+                new SoundPlayer("moneyWin").start();
                 money += doubl;
 
             } else if (slot1 == slot2 && slot3.equals("Вишня")) {
                 System.out.println("Вітаю ти виграв $" + tripl);
+                new SoundPlayer("moneyWin").start();
                 money += tripl;
             } else if (slot1.equals("Вишня") && slot2.equals("Вишня") && slot3.equals("Вишня")) {
                 System.out.println("Вітаю! Ти зірвав джекпот $" + jeckpot);
+                new SoundPlayer("moneyWin").start();
             }
             System.out.println("Твій баланс складає " + money);
             System.out.println("Прожовжити? 1.Так 2.Ні ");
@@ -75,6 +80,7 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
     public Integer getInput() {
         try {
             int input = Integer.parseInt(handleInput());
+            new SoundPlayer("moneyAccept").start();
             if (money >= input && input > 0) {
                 return input;
             } else
