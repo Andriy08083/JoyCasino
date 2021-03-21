@@ -63,12 +63,12 @@ public class IOHandler {
     public static void writeJSON(String path, String name, int balance) {
         try {
             JSONObject jsonObject = new JSONObject();
-            jsonObject.put("name", name);
+            jsonObject.put("name", name.replace("І","I").replace("і","i"));
             jsonObject.put("balance", String.valueOf(balance));
             writeFile(path, jsonObject.toJSONString());
         }
         catch (Exception ignored) {
-            System.out.println("Сталася поммилка при збереженнi профiля");
+            System.out.println("Сталася помилка при збереженнi профiля");
         }
     }
 

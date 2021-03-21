@@ -12,6 +12,7 @@ import java.util.List;
 
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
+import static ua.PGFKCasino.menu.Menu.printPGFK;
 
 public class Roulette extends IOHandler implements ICasinoGame {
     String name;
@@ -127,6 +128,8 @@ public class Roulette extends IOHandler implements ICasinoGame {
 
     @Override
     public void startGame() {
+        clearConsole();
+        printPGFK();
         String random;
         System.out.println("Ви розпочали гру");
         System.out.println("Ваш баланс: " + money);
@@ -136,6 +139,10 @@ public class Roulette extends IOHandler implements ICasinoGame {
             return;
         }
         input = isColorOrNum();
+        if (input == 100) {
+            stopGame();
+            return;
+        }
         System.out.print("Зробiть ставку: ");
         bet = getInput(1);
 
@@ -195,7 +202,7 @@ public class Roulette extends IOHandler implements ICasinoGame {
                 System.out.print("Виберiть число: ");
                 return getInput(0);
             case "2":
-                stopGame();
+                return 100;
             default:
                 System.out.println("Незрозумiла команда, повторiть ще раз");
                 return isColorOrNum();

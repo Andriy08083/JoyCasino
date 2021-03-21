@@ -2,6 +2,7 @@ package ua.PGFKCasino.dice;
 
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
+import static ua.PGFKCasino.menu.Menu.printPGFK;
 
 import ua.PGFKCasino.handlers.IOHandler;
 import ua.PGFKCasino.interfaces.ICasinoGame;
@@ -70,6 +71,8 @@ public class Dice extends IOHandler implements ICasinoGame{
 
     @Override
     public void startGame() {
+        clearConsole();
+        printPGFK();
         System.out.println("Ви розпочали гру!");
         System.out.println("Ваш баланс: " + money);
         

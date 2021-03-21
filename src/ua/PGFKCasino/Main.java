@@ -4,6 +4,7 @@ package ua.PGFKCasino;
 import org.fusesource.jansi.AnsiConsole;
 import ua.PGFKCasino.menu.Menu;
 import ua.PGFKCasino.handlers.MenuHandler;
+import ua.PGFKCasino.menu.SoundPlayer;
 
 /**
  *
@@ -13,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
         AnsiConsole.systemInstall();
-        //new SoundPlayer("audio").start();
+        new SoundPlayer("audio").start();
         Menu.printMain();
         MenuHandler.handleMain();
     }

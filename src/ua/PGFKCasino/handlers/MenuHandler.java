@@ -10,12 +10,14 @@ import ua.PGFKCasino.roulette.Roulette;
 
 import java.util.List;
 
+import static org.fusesource.jansi.Ansi.Color.RED;
+import static org.fusesource.jansi.Ansi.ansi;
 import static ua.PGFKCasino.handlers.IOHandler.handleInput;
 
 public class MenuHandler extends Menu {
 
     public static void handleMain() {
-        System.out.print("Введiть команду: ");
+        System.out.print(ansi().fg(RED).a("Введiть команду: ").reset());
         switch (handleInput().trim()) {
             case "1":
                 printGames();
@@ -26,25 +28,21 @@ public class MenuHandler extends Menu {
                 handleProfile();
                 break;
             case "3":
-                printRules();
-                handleRules();
-                break;
-            case "4":
                 printAuthors();
                 handleAuthors();
                 break;
-            case "5":
+            case "4":
                 System.exit(0);
                 break;
             default:
                 System.out.println("Незрозумiла команда. Введiть ще раз");
-                System.out.print("Введiть команду: ");
+                System.out.print(ansi().fg(RED).a("Введiть команду: ").reset());
                 handleMain();
         }
     }
 
     public static void handleGames() {
-        System.out.print("Введiть команду: ");
+        System.out.print(ansi().fg(RED).a("Введiть команду: ").reset());
         switch (handleInput().trim()) {
             case "0":
                 printMain();
@@ -72,7 +70,7 @@ public class MenuHandler extends Menu {
                 break;
             default:
                 System.out.println("Незрозумiла команда. Введiть ще раз");
-                System.out.print("Введiть команду: ");
+                System.out.print(ansi().fg(RED).a("Введiть команду: ").reset());
                 handleGames();
         }
     }
@@ -115,7 +113,7 @@ public class MenuHandler extends Menu {
                 System.out.println("Такого профiля нема. Виберiть iнший профiль");
                 handleProfileList();
             }
-            System.out.println("Вибраний вами профіль: ");
+            System.out.println("Вибраний вами профiль: ");
             profileInstance.getProfile();
             System.out.println("Що бажаєте зробити з даним профiлем?");
             System.out.println("0. Повернутися в головне меню");
@@ -135,6 +133,7 @@ public class MenuHandler extends Menu {
     }
 
     public static void handleProfileSelection(Profile profile) {
+        System.out.print(ansi().fg(RED).a("Введiть команду: ").reset());
         switch (handleInput().trim()) {
             case "0":
                 Menu.printMain();
@@ -150,14 +149,13 @@ public class MenuHandler extends Menu {
                 printMain();
                 handleMain();
                 break;
+            default:
+                handleProfileSelection(profile);
         }
     }
 
-    public static void handleRules() {
-
-    }
-
     public static void handleAuthors() {
+        System.out.print(ansi().fg(RED));
         System.out.println("0. Повернутися в головне меню");
         System.out.print("Введiть команду: ");
         handleInput();

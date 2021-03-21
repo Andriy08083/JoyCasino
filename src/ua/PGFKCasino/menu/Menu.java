@@ -4,24 +4,35 @@ import ua.PGFKCasino.handlers.IOHandler;
 
 import java.util.List;
 
+import static org.fusesource.jansi.Ansi.Color.*;
+import static org.fusesource.jansi.Ansi.ansi;
+
 public class Menu {
 
     public static void printMain() {
         IOHandler.clearConsole();
-        System.out.println(" ▐█▀█ ▐█▀▀▀  ▐█▀▀ ▐█ ▐▀  ▐█▀█  ▄█▀▄  ▄█▀▀█ ▐██ ██▄  █▌ ▐█▀▀█▌\n" +
-                           " ▐█▄█ ▐█ ▀█▌ ▐█▀▀ ▐██▌   ▐█   ▐█▄▄▐█ ▀▀█▄▄  █▌ ▐█ █ █  ▐█  █▌\n" +
-                           " ▐█   ▐██▄█▌ ▐█   ▐█ ▐▄  ▐█▄█ ▐█  ▐█ █▄▄█▀ ▐██ ██  ██▌ ▐██▄█▌");
+        printPGFK();
+        System.out.print(ansi().fg(RED));
         System.out.println("Вiтаю вас в нашому казино");
         System.out.println("Вибраний профiль: " + IOHandler.readFile("defaultProfile"));
         System.out.println("1. Iгри");
         System.out.println("2. Профiль");
-        System.out.println("3. Правила");
-        System.out.println("4. Про авторiв");
-        System.out.println("5. Вихiд");
+        System.out.println("3. Про авторiв");
+        System.out.println("4. Вихiд");
+        System.out.print(ansi().reset());
     }
+
+    public static void printPGFK() {
+        System.out.println(ansi().fg(RED).a(" ▐█▀█").toString() + ansi().fg(BLUE).a(" ▐█▀▀▀ ").toString() + ansi().fg(RED).a(" ▐█▀▀").toString() + ansi().fg(BLUE).a(" ▐█ ▐▀  ").reset().toString() + "▐█▀█  ▄█▀▄  ▄█▀▀█ ▐██ ██▄  █▌ ▐█▀▀█▌");
+        System.out.println(ansi().fg(RED).a(" ▐█▄█").toString() + ansi().fg(BLUE).a(" ▐█ ▀█▌").toString() + ansi().fg(RED).a(" ▐█▀▀").toString() + ansi().fg(BLUE).a(" ▐██▌   ").reset().toString() + "▐█   ▐█▄▄▐█ ▀▀█▄▄  █▌ ▐█ █ █  ▐█  █▌" + "   " +  ansi().fg(BLUE)  .a(" █ █  ▄▀█").reset());
+        System.out.println(ansi().fg(RED).a(" ▐█  ").toString() + ansi().fg(BLUE).a(" ▐██▄█▌").toString() + ansi().fg(RED).a(" ▐█  ").toString() + ansi().fg(BLUE).a(" ▐█ ▐▄  ").reset().toString() + "▐█▄█ ▐█  ▐█ █▄▄█▀ ▐██ ██  ██▌ ▐██▄█▌" + " █ " +  ansi().fg(YELLOW).a(" █▄█  █▀█").reset());
+    }
+
 
     public static void printGames() {
         IOHandler.clearConsole();
+        printPGFK();
+        System.out.print(ansi().fg(RED));
         System.out.println("0. Повернутися в головне меню");
         System.out.println("1. Рулетка");
         System.out.println("2. Слот-машина");
@@ -31,6 +42,8 @@ public class Menu {
 
     public static void printProfile() {
         IOHandler.clearConsole();
+        printPGFK();
+        System.out.print(ansi().fg(RED));
         System.out.println("0. Повернутися в головне меню");
         System.out.println("1. Отримати список профiлiв");
         System.out.println("2. Створити профiль");
@@ -38,6 +51,8 @@ public class Menu {
 
     public static void printProfileList() {
         IOHandler.clearConsole();
+        printPGFK();
+        System.out.print(ansi().fg(RED));
         List<String> profiles = IOHandler.getFiles("profiles");
         System.out.println("Наявнi профiлi: ");
         System.out.println("0. Повернутися в головне меню");
@@ -47,13 +62,11 @@ public class Menu {
         System.out.print("Виберiть профiль: ");
     }
 
-    public static void printRules() {
-        IOHandler.clearConsole();
-
-    }
 
     public static void printAuthors() {
         IOHandler.clearConsole();
+        printPGFK();
+        System.out.print(ansi().fg(RED));
         System.out.println("Автори:");
         System.out.println("Лабатiй Андрiй");
         System.out.println("Потiчний Олександр");

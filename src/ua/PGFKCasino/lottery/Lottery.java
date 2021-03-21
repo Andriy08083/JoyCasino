@@ -1,17 +1,19 @@
 package ua.PGFKCasino.lottery;
-import org.fusesource.jansi.AnsiConsole;
+
+import ua.PGFKCasino.handlers.IOHandler;
 import ua.PGFKCasino.interfaces.ICasinoGame;
 import ua.PGFKCasino.profile.Profile;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
 
-import static org.fusesource.jansi.Ansi.ansi;
-import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.Color.BLUE;
-import static ua.PGFKCasino.handlers.IOHandler.handleInput;
-import static ua.PGFKCasino.handlers.IOHandler.writeJSON;
+import static org.fusesource.jansi.Ansi.ansi;
+import static ua.PGFKCasino.menu.Menu.printPGFK;
 
-public class Lottery implements ICasinoGame {
+public class Lottery extends IOHandler implements ICasinoGame {
     public static final int NUMBERS = 6;
     public static final int MAX_NUMBER = 40;
     Profile profile;
@@ -24,7 +26,7 @@ public class Lottery implements ICasinoGame {
 
     // генерує набір виграшних номерів лото
     public static Set<Integer> createWinningNumbers() {
-        Set<Integer> winningNumbers = new TreeSet<Integer>();
+        Set<Integer> winningNumbers = new TreeSet<>();
         Random r = new Random();
         while (winningNumbers.size() < NUMBERS) {
             int number = r.nextInt(MAX_NUMBER) + 1;
@@ -35,11 +37,8 @@ public class Lottery implements ICasinoGame {
 
     // читає лотерейний квиток гравця з консолі
     public static Set<Integer> getTicket() {
-        Set<Integer> ticket = new TreeSet<Integer>();
+        Set<Integer> ticket = new TreeSet<>();
         Scanner console = new Scanner(System.in);
-        System.out.println(" ▐█▀█ ▐█▀▀▀  ▐█▀▀ ▐█ ▐▀  ▐█▀█  ▄█▀▄  ▄█▀▀█ ▐██ ██▄  █▌ ▐█▀▀█▌\n" +
-                           " ▐█▄█ ▐█ ▀█▌ ▐█▀▀ ▐██▌   ▐█   ▐█▄▄▐█ ▀▀█▄▄  █▌ ▐█ █ █  ▐█  █▌\n" +
-                           " ▐█   ▐██▄█▌ ▐█   ▐█ ▐▄  ▐█▄█ ▐█  ▐█ █▄▄█▀ ▐██ ██  ██▌ ▐██▄█▌");
         System.out.print("Введiть вашi "+ NUMBERS +
                 " унiкальнi номера лото: ");
         while (ticket.size() < NUMBERS) {
@@ -51,6 +50,8 @@ public class Lottery implements ICasinoGame {
 
     @Override
     public void startGame() {
+        clearConsole();
+        printPGFK();
         if (money < 40) {
             System.out.println("Ви не можете грати, у вас нульовий баланс");
             stopGame();
@@ -62,7 +63,7 @@ public class Lottery implements ICasinoGame {
         System.out.println();
 
         // зберігає лише виграшні номери з квитка користувача
-        Set<Integer> intersection = new TreeSet<Integer>(ticket);
+        Set<Integer> intersection = new TreeSet<>(ticket);
         intersection.retainAll(winningNumbers);
 
         // Виворить результат

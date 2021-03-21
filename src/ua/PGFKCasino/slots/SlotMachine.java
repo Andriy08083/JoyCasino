@@ -8,6 +8,7 @@ import ua.PGFKCasino.profile.Profile;
 
 import java.util.Random;
 
+import static ua.PGFKCasino.menu.Menu.printPGFK;
 
 
 public class SlotMachine extends IOHandler implements ICasinoGame {
@@ -38,6 +39,8 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
         метод який починає гру
      */
     public void startGame() {
+        clearConsole();
+        printPGFK();
         int rate;
         String slot1;
         String slot2;
