@@ -98,7 +98,7 @@ public class Dice extends IOHandler implements ICasinoGame{
             case "1":
                 startGame();
                 break;
-            case "2":
+            case "0":
                 stopGame();
                 break;
             default:
