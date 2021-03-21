@@ -127,7 +127,7 @@ public class MenuHandler extends Menu {
     public static void handleProfileCreation() {
         System.out.print("Введiть iм'я гравця: ");
         String name = handleInput().trim();
-        IOHandler.writeJSON("profiles/" + name + ".json", name, 100);
+        IOHandler.writeJSON("profiles/" + name + ".json", name, 250);
         Menu.printMain();
         handleMain();
     }

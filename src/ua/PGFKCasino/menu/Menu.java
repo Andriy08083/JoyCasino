@@ -1,6 +1,7 @@
 package ua.PGFKCasino.menu;
 
 import ua.PGFKCasino.handlers.IOHandler;
+import ua.PGFKCasino.profile.Profile;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ public class Menu {
         System.out.print(ansi().fg(RED));
         System.out.println("Вiтаю вас в нашому казино");
         System.out.println("Вибраний профiль: " + IOHandler.readFile("defaultProfile"));
+        System.out.println("Баланс профiлю: " + new Profile(IOHandler.readFile("defaultProfile")).getBalance());
         System.out.println("1. Iгри");
         System.out.println("2. Профiль");
         System.out.println("3. Про авторiв");

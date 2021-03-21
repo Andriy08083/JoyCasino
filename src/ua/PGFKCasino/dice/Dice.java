@@ -46,7 +46,7 @@ public class Dice extends IOHandler implements ICasinoGame{
         }else {
             dicethreecolor = ansi().fg(RED).a(dicethree).reset().toString();
         }
-        System.out.println("Значення кубиків: " + diceonecolor + " | "  + dicetwocolor + " | "  + dicethreecolor );
+        System.out.println("Значення кубикiв: " + diceonecolor + " | "  + dicetwocolor + " | "  + dicethreecolor );
         
         if(diceone == dice && dicetwo == dice && dicethree == dice){
             resultGame(4);
@@ -82,11 +82,11 @@ public class Dice extends IOHandler implements ICasinoGame{
             return;
         }
         
-        System.out.print("Зробіть ставку: ");
+        System.out.print("Зробiть ставку: ");
             bet = getInput();
             money = money - bet;
         System.out.println("Ставка прийнята!");
-        System.out.print("Введіть значення кубика: ");
+        System.out.print("Введiть значення кубика: ");
         spinDice();
         
         saveGame();
@@ -105,7 +105,7 @@ public class Dice extends IOHandler implements ICasinoGame{
                 stopGame();
                 break;
             default:
-                System.out.println("Незрозумiла команда. Введіть ще раз.");
+                System.out.println("Незрозумiла команда. Введiть ще раз.");
                 isGameContinue();
                 break;
         }

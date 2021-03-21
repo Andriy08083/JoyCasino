@@ -18,6 +18,7 @@ public class Lottery extends IOHandler implements ICasinoGame {
     public static final int MAX_NUMBER = 40;
     Profile profile;
     String name;
+    double prize;
     int money;
     public Lottery(Profile pr) {
         profile = pr;
@@ -52,11 +53,14 @@ public class Lottery extends IOHandler implements ICasinoGame {
     public void startGame() {
         clearConsole();
         printPGFK();
-        if (money < 40) {
+        if (money < 30) {
             System.out.println("Ви не можете грати, у вас нульовий баланс");
             stopGame();
             return;
         }
+        money -= 30;
+        System.out.println("З вашого рахунку знято 30 баксiв");
+        System.out.println("Гра починається");
         // отримати виграшні номери та набори квитків
         Set<Integer> winningNumbers = createWinningNumbers();
         Set<Integer> ticket = getTicket();
@@ -67,19 +71,20 @@ public class Lottery extends IOHandler implements ICasinoGame {
         intersection.retainAll(winningNumbers);
 
         // Виворить результат
-        System.out.println(ansi().fg(BLUE).a(ticket).reset());
+        System.out.println(ansi().fg(BLUE).a("Вашi номера: " + ticket).reset());
+        System.out.println();
         System.out.println("Виграшнi номера: " + winningNumbers);
         System.out.println();
         System.out.println("Ви отримали: " + intersection.size() + " Виграшнi номери");
         if (intersection.size() > 0) {
-            double prize = 10 * Math.pow(2, intersection.size());
-            System.out.println("Виграшний номер це: " +intersection);
-            System.out.println("Ваш приз це: "+"$"+ prize);
-            money += prize;
-            saveGame();
-            isGameContinue();
+            prize = 10 * Math.pow(2, intersection.size());
+            System.out.println("Виграшний номер це: " + intersection);
+            System.out.println("Ваш приз це: " + "$" + prize);
         }
-
+        money += (int) prize;
+        System.out.println("Ваш баланс: " + money);
+        saveGame();
+        isGameContinue();
     }
 
     @Override
@@ -93,9 +98,12 @@ public class Lottery extends IOHandler implements ICasinoGame {
         if (name != null) {
             writeJSON("profiles/" + name + ".json", name, money);
             System.out.println("Профiль успiшно збережено");
+            return;
         }
         else
             System.out.println("Неможливо зберегти профiль");
+        return;
+
     }
 
     @Override

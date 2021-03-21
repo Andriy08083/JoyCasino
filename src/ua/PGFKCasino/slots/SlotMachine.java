@@ -39,6 +39,10 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
         метод який починає гру
      */
     public void startGame() {
+        if (money == 0) {
+            stopGame();
+            return;
+        }
         clearConsole();
         printPGFK();
         int rate;
