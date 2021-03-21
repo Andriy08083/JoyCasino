@@ -1,12 +1,16 @@
 package ua.PGFKCasino.menu;
 
-import handlers.IOHandler;
+import ua.PGFKCasino.handlers.IOHandler;
 
 import java.util.List;
 
 public class Menu {
 
     public static void printMain() {
+        IOHandler.clearConsole();
+        System.out.println(" ▐█▀█ ▐█▀▀▀  ▐█▀▀ ▐█ ▐▀  ▐█▀█  ▄█▀▄  ▄█▀▀█ ▐██ ██▄  █▌ ▐█▀▀█▌\n" +
+                           " ▐█▄█ ▐█ ▀█▌ ▐█▀▀ ▐██▌   ▐█   ▐█▄▄▐█ ▀▀█▄▄  █▌ ▐█ █ █  ▐█  █▌\n" +
+                           " ▐█   ▐██▄█▌ ▐█   ▐█ ▐▄  ▐█▄█ ▐█  ▐█ █▄▄█▀ ▐██ ██  ██▌ ▐██▄█▌");
         System.out.println("Вiтаю вас в нашому казино");
         System.out.println("Вибраний профiль: " + IOHandler.readFile("defaultProfile"));
         System.out.println("1. Iгри");
@@ -17,6 +21,7 @@ public class Menu {
     }
 
     public static void printGames() {
+        IOHandler.clearConsole();
         System.out.println("0. Повернутися в головне меню");
         System.out.println("1. Рулетка");
         System.out.println("2. Слот-машина");
@@ -25,12 +30,14 @@ public class Menu {
     }
 
     public static void printProfile() {
+        IOHandler.clearConsole();
         System.out.println("0. Повернутися в головне меню");
         System.out.println("1. Отримати список профiлiв");
         System.out.println("2. Створити профiль");
     }
 
     public static void printProfileList() {
+        IOHandler.clearConsole();
         List<String> profiles = IOHandler.getFiles("profiles");
         System.out.println("Наявнi профiлi: ");
         System.out.println("0. Повернутися в головне меню");
@@ -41,10 +48,12 @@ public class Menu {
     }
 
     public static void printRules() {
+        IOHandler.clearConsole();
 
     }
 
     public static void printAuthors() {
+        IOHandler.clearConsole();
         System.out.println("Автори:");
         System.out.println("Лабатiй Андрiй");
         System.out.println("Потiчний Олександр");

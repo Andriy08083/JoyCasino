@@ -1,4 +1,4 @@
 @ECHO OFF
-chcp 1251
-java -jar dist/Casino.jar
+
+java -jar -DFile.Encoding=CP866 ideabuild\Casino_jar\Casino.jar
 pause

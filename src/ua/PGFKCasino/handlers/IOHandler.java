@@ -1,4 +1,4 @@
-package handlers;
+package ua.PGFKCasino.handlers;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -12,7 +12,7 @@ public class IOHandler {
 
     public static String handleInput() {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in, "CP866"));
             return reader.readLine();
         }
         catch (Exception ignored) { }
@@ -54,6 +54,12 @@ public class IOHandler {
         catch (Exception ignored) { }
     }
 
+    public static String osChecker() {
+        if (System.getProperty("os.name").contains("Windows")) {
+            return "Windows";
+        }
+        return "Linux";
+    }
     public static void writeJSON(String path, String name, int balance) {
         try {
             JSONObject jsonObject = new JSONObject();

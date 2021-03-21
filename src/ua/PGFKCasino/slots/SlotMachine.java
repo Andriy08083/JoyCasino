@@ -1,7 +1,7 @@
 package ua.PGFKCasino.slots;
 
 
-import handlers.IOHandler;
+import ua.PGFKCasino.handlers.IOHandler;
 import ua.PGFKCasino.interfaces.ICasinoGame;
 import ua.PGFKCasino.menu.SoundPlayer;
 import ua.PGFKCasino.profile.Profile;

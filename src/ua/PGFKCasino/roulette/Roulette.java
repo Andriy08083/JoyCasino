@@ -1,7 +1,7 @@
 package ua.PGFKCasino.roulette;
 
 import org.fusesource.jansi.Ansi;
-import handlers.IOHandler;
+import ua.PGFKCasino.handlers.IOHandler;
 import ua.PGFKCasino.interfaces.ICasinoGame;
 import ua.PGFKCasino.menu.SoundPlayer;
 import ua.PGFKCasino.profile.Profile;
@@ -21,7 +21,7 @@ public class Roulette extends IOHandler implements ICasinoGame {
     Ansi inputColor;
     boolean isNumberBet;
     StringBuffer sb = new StringBuffer();
-    BufferedOutputStream os = new BufferedOutputStream(System.out);
+    OutputStreamWriter os;
     Ansi redColor(String text) {
         return ansi().bg(RED).a(text).reset();
     }
@@ -52,6 +52,11 @@ public class Roulette extends IOHandler implements ICasinoGame {
 
     public String runRoulette() {
         try {
+            if (osChecker().equals("Windows")) {
+                os = new OutputStreamWriter(System.out, "CP866");
+            } else {
+                os = new OutputStreamWriter(System.out);
+            }
             new SoundPlayer("rouletteRun").start();
             String border = "=====================================";
             String upperArrow = ansi().fg(CYAN).a("                        \\|/").reset().toString();
@@ -79,7 +84,7 @@ public class Roulette extends IOHandler implements ICasinoGame {
                             .append("\n")
                             .append(border)
                             .append("\n");
-                    os.write(sb.toString().getBytes());
+                    os.write(sb.toString());
                     os.flush();
                     values = new StringBuffer();
                     sb = new StringBuffer();
@@ -131,10 +136,6 @@ public class Roulette extends IOHandler implements ICasinoGame {
             return;
         }
         input = isColorOrNum();
-        if (input == 0) {
-            stopGame();
-            return;
-        }
         System.out.print("Зробiть ставку: ");
         bet = getInput(1);
 
@@ -194,7 +195,7 @@ public class Roulette extends IOHandler implements ICasinoGame {
                 System.out.print("Виберiть число: ");
                 return getInput(0);
             case "2":
-                return 0;
+                stopGame();
             default:
                 System.out.println("Незрозумiла команда, повторiть ще раз");
                 return isColorOrNum();

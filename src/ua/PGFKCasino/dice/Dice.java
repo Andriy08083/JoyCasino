@@ -3,7 +3,7 @@ package ua.PGFKCasino.dice;
 import static org.fusesource.jansi.Ansi.Color.*;
 import static org.fusesource.jansi.Ansi.ansi;
 
-import handlers.IOHandler;
+import ua.PGFKCasino.handlers.IOHandler;
 import ua.PGFKCasino.interfaces.ICasinoGame;
 import ua.PGFKCasino.profile.Profile;
 import java.util.Random;

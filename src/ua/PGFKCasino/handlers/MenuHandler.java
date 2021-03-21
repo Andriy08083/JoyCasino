@@ -1,4 +1,4 @@
-package handlers;
+package ua.PGFKCasino.handlers;
 
 
 import ua.PGFKCasino.slots.SlotMachine;
@@ -10,12 +10,12 @@ import ua.PGFKCasino.roulette.Roulette;
 
 import java.util.List;
 
-import static handlers.IOHandler.handleInput;
+import static ua.PGFKCasino.handlers.IOHandler.handleInput;
 
 public class MenuHandler extends Menu {
 
     public static void handleMain() {
-        System.out.print("Введіть команду: ");
+        System.out.print("Введiть команду: ");
         switch (handleInput().trim()) {
             case "1":
                 printGames();
@@ -38,13 +38,13 @@ public class MenuHandler extends Menu {
                 break;
             default:
                 System.out.println("Незрозумiла команда. Введiть ще раз");
-                System.out.print("Введіть команду: ");
+                System.out.print("Введiть команду: ");
                 handleMain();
         }
     }
 
     public static void handleGames() {
-        System.out.print("Введіть команду: ");
+        System.out.print("Введiть команду: ");
         switch (handleInput().trim()) {
             case "0":
                 printMain();
@@ -66,13 +66,13 @@ public class MenuHandler extends Menu {
                 handleMain();
                 break;
             case "4":
-                new Lottery();
+                new Lottery(new Profile(IOHandler.readFile("defaultProfile")));
                 printMain();
                 handleMain();
                 break;
             default:
                 System.out.println("Незрозумiла команда. Введiть ще раз");
-                System.out.print("Введіть команду: ");
+                System.out.print("Введiть команду: ");
                 handleGames();
         }
     }
@@ -159,7 +159,7 @@ public class MenuHandler extends Menu {
 
     public static void handleAuthors() {
         System.out.println("0. Повернутися в головне меню");
-        System.out.print("Введіть команду: ");
+        System.out.print("Введiть команду: ");
         handleInput();
         printMain();
         handleMain();

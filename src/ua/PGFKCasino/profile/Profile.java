@@ -1,7 +1,7 @@
 package ua.PGFKCasino.profile;
 
 import org.json.simple.JSONObject;
-import handlers.IOHandler;
+import ua.PGFKCasino.handlers.IOHandler;
 
 public class Profile extends IOHandler {
     String name, balance;
