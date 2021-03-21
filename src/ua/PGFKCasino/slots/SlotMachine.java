@@ -48,8 +48,8 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
             slot1 = getFruit();
             slot2 = getFruit();
             slot3 = getFruit();
-            System.out.println("Твій баланс складає:" +money);
-            System.out.println("Скільки ти хочеш поставити??");
+            System.out.println("Твiй баланс складає:" +money);
+            System.out.println("Скiльки ти хочеш поставити??");
             rate = getInput();
             doubl = rate * 2;
             tripl = rate * 3;
@@ -58,11 +58,11 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
             System.out.println(slot2);
             System.out.println(slot3);
             if (slot1 != slot2 && slot1 != slot3 && slot2 != slot3) {
-                System.out.println("Ти втратив гроші(");
+                System.out.println("Ти втратив грошi(");
                 new SoundPlayer("moneyLose").start();
                 money -= rate;
             } else if (slot1 == slot2 || slot1 == slot3 || slot2 == slot3) {
-                System.out.println("Вітаю ти виграв $" + doubl);
+                System.out.println("Вiтаю ти виграв $" + doubl);
                 new SoundPlayer("moneyWin").start();
                 money += doubl;
 
@@ -71,11 +71,11 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
                 new SoundPlayer("moneyWin").start();
                 money += tripl;
             } else if (slot1.equals("Вишня") && slot2.equals("Вишня") && slot3.equals("Вишня")) {
-                System.out.println("Вітаю! Ти зірвав джекпот $" + jeckpot);
+                System.out.println("Вiтаю! Ти зiрвав джекпот $" + jeckpot);
                 new SoundPlayer("moneyWin").start();
             }
-            System.out.println("Твій баланс складає " + money);
-            System.out.println("Прожовжити? 1.Так 2.Ні ");
+            System.out.println("Твiй баланс складає " + money);
+            System.out.println("Прожовжити? 1.Так 2.Нi ");
             ContinueSpin();
 
     }
@@ -109,7 +109,7 @@ public class SlotMachine extends IOHandler implements ICasinoGame {
                 stopGame();
                 break;
             default:
-                System.out.println("Незрозумiла команда. Введіть ще раз");
+                System.out.println("Незрозумiла команда. Введiть ще раз");
                 ContinueSpin();
                 break;
         }
