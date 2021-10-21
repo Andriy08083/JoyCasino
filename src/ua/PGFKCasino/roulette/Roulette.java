@@ -24,9 +24,7 @@ public class Roulette extends IOHandler implements ICasinoGame {
     StringBuffer sb = new StringBuffer();
     OutputStreamWriter os;
     Ansi redColor(String text) {
-        return ansi().bg(RED).a(text).reset();
-    }
-
+        return ansi().bg(RED).a(text).reset();}
     Ansi greenColor(String text) {
         return ansi().bg(Ansi.Color.GREEN).a(text).reset();
     }

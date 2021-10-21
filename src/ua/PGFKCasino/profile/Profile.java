@@ -5,7 +5,6 @@ import ua.PGFKCasino.handlers.IOHandler;
 
 public class Profile extends IOHandler {
     String name, balance;
-
     public Profile(String jsonFile) {
         try {
             JSONObject jsonObject = (JSONObject) readJSON("profiles/" + jsonFile + ".json");
