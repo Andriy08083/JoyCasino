@@ -70,6 +70,5 @@ public class Menu {
         System.out.println("Автори:");
         System.out.println("Лабатiй Андрiй");
         System.out.println("Потiчний Олександр");
-
     }
 }
