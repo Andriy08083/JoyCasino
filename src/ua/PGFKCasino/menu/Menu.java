@@ -38,8 +38,6 @@ public class Menu {
         System.out.println("0. Повернутися в головне меню");
         System.out.println("1. Рулетка");
         System.out.println("2. Слот-машина");
-        System.out.println("3. Кубики");
-        System.out.println("4. Лото");
     }
 
     public static void printProfile() {
@@ -72,8 +70,6 @@ public class Menu {
         System.out.println("Автори:");
         System.out.println("Лабатiй Андрiй");
         System.out.println("Потiчний Олександр");
-        System.out.println("Пятачук Олесандр");
-        System.out.println("Маргiтич Станiслав");
-        System.out.println("Цiккер Дмитро");
+
     }
 }
